@@ -1,0 +1,59 @@
+Table people {
+  id integer [primary key]
+  name text
+  metadata jsonb
+}
+
+Table competitions {
+  id integer [primary key]
+  name text
+  date date
+  metadata jsonb
+}
+
+Table categories {
+  id integer [primary key]
+  competition_id integer [ref: > competitions.id]
+  name text
+  metadata jsonb
+}
+
+Table rounds {
+  id integer [primary key]
+  category_id integer [ref: > categories.id]
+  type text
+  
+  // The Merged Data
+  marks jsonb
+  alignment_cache jsonb
+  bias_cache jsonb
+  blocs_cache jsonb
+  analytics_last_calculated datetime
+  
+  metadata jsonb
+}
+
+Table adjudicators {
+  id integer [primary key]
+  round_id integer [ref: > rounds.id]
+  people_id integer [ref: > people.id]
+  letter text
+  metadata jsonb
+}
+
+Table entries {
+  id integer [primary key]
+  category_id integer [ref: > categories.id]
+  partner1_id integer [ref: > people.id]
+  partner2_id integer [ref: > people.id]
+  number integer
+  place integer
+  metadata jsonb
+}
+
+Table alignment_records {
+  id integer [primary key]
+  alignment float
+  person_id integer [ref: > people.id]
+  round_id integer [ref: > rounds.id]
+}

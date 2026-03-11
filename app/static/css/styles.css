@@ -1,0 +1,160 @@
+/* --- Typography Utilities --- */
+
+/* The Elite / Perfect Alignment (Deep Emerald to Leaf Green) */
+.text-status-elite {
+    color: #059669;
+    /* Deep Emerald */
+}
+
+.text-status-excellent {
+    color: #16A34A;
+    /* True Green */
+}
+
+.text-status-great {
+    color: #4DAB28;
+    /* Leaf Green */
+}
+
+/* The Healthy Baseline (Yellow-Green to Gold) */
+.text-status-good {
+    color: #75B009;
+    /* Bright Olive / Yellow-Green */
+}
+
+.text-status-average {
+    color: #A0B000;
+    /* Dark Yellow-Lime */
+}
+
+.text-status-fair {
+    color: #C3A700;
+    /* Gold */
+}
+
+/* The Warning Zones (Amber to Orange) */
+.text-status-below-average {
+    color: #DF9600;
+    /* Bright Amber */
+}
+
+.text-status-poor {
+    color: #F07F00;
+    /* Orange */
+}
+
+.text-status-very-poor {
+    color: #F56314;
+    /* Dark Orange */
+}
+
+/* The Negative / Inverted Zones (Red-Orange to Dark Crimson) */
+.text-status-bad {
+    color: #EE4326;
+    /* Red-Orange */
+}
+
+.text-status-terrible {
+    color: #DC2626;
+    /* True Red */
+}
+
+.text-status-critical {
+    color: #B51A22;
+    /* Dark Red */
+}
+
+.text-status-rogue {
+    color: #821019;
+    /* Deep Crimson / Maroon */
+}
+
+/* Insufficient Data */
+.text-status-ghost {
+    color: #9CA3AF;
+    /* gray-400 */
+}
+
+/* --- DaisyUI Tab Overrides --- */
+.tabs-lifted .tab-active,
+.tabs-lifted .tab:checked {
+    color: #000000 !important;
+    --tab-color: #000000 !important;
+    font-weight: 700;
+}
+
+.tabs-lifted .tab:checked:not(.tab-disabled):not([disabled]),
+.tabs-lifted .tab-active:not(.tab-disabled):not([disabled]) {
+    background-color: #ffffff !important;
+}
+
+/* Soft Blue for Adjudicators */
+.custom-badge-adj {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+}
+
+.tabs-boxed .tab-active {
+    background-color: #4D7CA2 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+/* Soft Purple for Competitors */
+.custom-badge-comp {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+}
+
+/* --- Brand Button Overrides --- */
+.btn-primary {
+    background-color: #4D7CA2 !important;
+    border-color: #4D7CA2 !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover {
+    background-color: #4D7CA2 !important;
+    border-color: #4D7CA2 !important;
+    filter: brightness(0.9);
+}
+
+/* --- File Input Overrides --- */
+.file-input-bordered {
+    border-color: #D0D6DC;
+    background-color: #ffffff;
+    color: #1F272D;
+}
+
+.file-input-bordered:focus {
+    border-color: #4D7CA2;
+    outline: none;
+}
+
+.file-input-bordered::file-selector-button {
+    background-color: #4D7CA2;
+    color: #ffffff;
+    border: none;
+    transition: filter 0.2s;
+}
+
+.file-input-bordered::file-selector-button:hover {
+    background-color: #4D7CA2;
+    filter: brightness(0.9);
+}
+
+/* --- HTMX Utilities --- */
+.htmx-indicator {
+    display: none;
+}
+
+.htmx-indicator.htmx-request {
+    display: block;
+}
+
+/*  */
+html {
+    scroll-behavior: smooth;
+}

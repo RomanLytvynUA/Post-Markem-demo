@@ -1,0 +1,29 @@
+<div class="bg-white rounded-lg shadow-sm p-2">
+    <div class="divide-y divide-brand-dust/30" id="categories_list">
+        {% for category in data %}
+        <div id="cat-row-{{ category.id }}"
+            class="category-row py-4 px-2 -mx-2 rounded hover:bg-slate-50 transition-colors"
+            data-id="{{ category.id }}">
+
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="font-medium text-brand-dark text-sm">{{ category.name }}</div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    {% for round in category.rounds %}
+                    <a href="/categories/display/{{ round.id }}"
+                        class="btn btn-xs btn-outline border-brand-dust text-brand-dark font-mono hover:bg-brand-blue hover:text-white transition-colors">
+                        {{ round.type }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center py-6 text-brand-slate text-sm italic">
+            No categories available for this event.
+        </div>
+        {% endfor %}
+    </div>
+</div>

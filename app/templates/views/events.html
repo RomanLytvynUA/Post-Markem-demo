@@ -1,0 +1,104 @@
+{% extends "/layouts/base.html" %}
+
+{% block content %}
+<div class="w-full mx-auto max-w-5xl">
+
+    <div class="mb-6">
+        <h1 class="text-3xl font-serif font-bold text-brand-dark tracking-tight">Events Directory</h1>
+        <p class="text-brand-slate mt-2 text-sm">Browse the archive of analyzed competitions.</p>
+    </div>
+
+    <div
+        class="flex flex-col md:flex-row gap-3 mb-8 bg-white p-4 rounded-xl border border-brand-dust shadow-sm relative">
+        <div class="flex-1 relative">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-5 h-5 absolute left-3 top-3 text-brand-slate">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+            <input type="text" id="searchInput" onkeyup="filterEvents()" placeholder="Search by event name..."
+                class="input input-bordered w-full pl-10 border-brand-dust focus:border-brand-blue focus:outline-none text-sm" />
+        </div>
+        <select id="sortSelect" onchange="sortEvents()"
+            class="select select-bordered border-brand-dust focus:border-brand-blue focus:outline-none text-sm font-medium">
+            <option value="date_desc">Newest First</option>
+            <option value="date_asc">Oldest First</option>
+            <option value="name_asc">Name (A-Z)</option>
+        </select>
+    </div>
+
+    <div id="eventsList" class="space-y-3">
+        {% for comp in competitions %}
+        {% include "event_components/event.html" %}
+        {% else %}
+        <div class="text-center py-10 bg-white border border-brand-dust shadow-sm rounded-xl">
+            <p class="text-brand-slate">No events found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    function filterEvents() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        document.querySelectorAll('.event-card').forEach(card => {
+            const searchData = (card.dataset.search || "").toLowerCase();
+            card.style.display = searchData.includes(input) ? "" : "none";
+        });
+    }
+
+    function sortEvents() {
+        const list = document.getElementById('eventsList');
+        const sortValue = document.getElementById('sortSelect').value;
+
+        // Get all cards (abort if none exist)
+        const cards = Array.from(list.getElementsByClassName('event-card'));
+        if (cards.length === 0) return;
+
+        // 2. Wrap sorting in setTimeout to let the browser visually render the spinner first
+        setTimeout(() => {
+
+            // Custom Parser for DD/MM/YYYY
+            const parseDateSafely = (dateStr) => {
+                if (!dateStr || dateStr === 'None') return 0;
+
+                const parts = dateStr.split('/');
+                if (parts.length === 3) {
+                    const day = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10) - 1; // JS Months are 0-indexed (Jan=0, Dec=11)
+                    const year = parseInt(parts[2], 10);
+                    return new Date(year, month, day).getTime();
+                }
+
+                return 0; // Fallback for completely malformed dates
+            };
+
+            cards.sort((a, b) => {
+                if (sortValue === 'name_asc') {
+                    const nameA = a.dataset.name || "";
+                    const nameB = b.dataset.name || "";
+                    return nameA.localeCompare(nameB);
+                }
+
+                const dateA = parseDateSafely(a.dataset.date);
+                const dateB = parseDateSafely(b.dataset.date);
+
+                if (sortValue === 'date_asc') {
+                    if (dateA === 0 && dateB === 0) return 0;
+                    if (dateA === 0) return 1; // Empty dates to the bottom
+                    if (dateB === 0) return -1;
+                    return dateA - dateB;
+                } else { // date_desc
+                    if (dateA === 0 && dateB === 0) return 0;
+                    if (dateA === 0) return 1; // Empty dates to the bottom
+                    if (dateB === 0) return -1;
+                    return dateB - dateA;
+                }
+            });
+
+            // 3. Re-append the sorted cards
+            cards.forEach(card => list.appendChild(card));
+        }, 50); // 50ms delay
+    }
+</script>
+{% endblock %}
