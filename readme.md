@@ -13,6 +13,10 @@
   <a href="#how-to-use">How To Use</a>
 </p>
 
+## Demo
+
+A live demonstration of the V1 MVP, containing two years of historical data, is available on [pythonanywhere](https://romanlytvyn.pythonanywhere.com/). Note: The analytical engine used to generate this dataset is now deprecated, and the resulting metrics should be treated strictly as a proof-of-concept.
+
 ## Description
 <b>Post-Markem</b> is the analytical engine that enables you to perform a "post-mortem" of competitive ballroom dance adjudication protocols. 
 
